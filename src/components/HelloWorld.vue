@@ -27,10 +27,40 @@
         <li v-for="product in products">{{product.name}}</li>
       </ul>
     </div>
+    <hr/>
+    <local-component></local-component>
+    <local-component></local-component>
+    <hr/>
+    <global-component></global-component>
+    <hr/>
+    <h3>Custom Component</h3>
+    <custom-component></custom-component>
   </div>
 </template>
 <script>
+  import customComponent from './customComponent';
   import axios from 'axios';
+  import Vue from "../router";
+
+  // Vue.component('global-component', {
+  //   template: '<div> a global component</div>'
+  // });
+// SHOWS HOW LOCAL COMPONENTS CAN BE INDEPENDENT
+  const localComponent = { template: '<div @click="showNum()">\
+    A local component\
+    <div>The number: {{num}}</div>\
+  </div>',
+  data: function () {
+    return{
+      num: Math.random()
+    };
+  },
+    methods: {
+    showNum: function(){
+      alert('My number is ' + this.num);
+    }
+    }
+  };
 export default {
   data () {
     return {
@@ -42,6 +72,11 @@ export default {
       response: '',
       products: []
     }
+  },
+  props: ['theTitle', 'products'],
+  components: {
+    'local-component': localComponent,
+    'custom-component': customComponent
   },
   beforeCreate: function () {
     console.log('beforeCreate')
