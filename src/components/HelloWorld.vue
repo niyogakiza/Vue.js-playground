@@ -43,6 +43,31 @@ export default {
       products: []
     }
   },
+  beforeCreate: function () {
+    console.log('beforeCreate')
+  },
+  created: function(){
+    console.log('created');
+    this.question = 'A default question about products';
+  },
+  beforeMount: function(){
+    console.log("beforeMount")
+  },
+  mounted: function(){
+    console.log("mounted")
+  },
+  beforeUpdate: function(){
+    console.log("beforeUpdate")
+  },
+  updated: function(){
+    console.log("updated")
+  },
+  beforeDestroy: function(){
+    console.log('beforeDestroy')
+  },
+  destroyed: function(){
+    console.log('destroyed')
+  },
   computed:{
     tempCelsius: function(){
       return Math.round(5/9 * (this.tempFahrenheit -32))
@@ -54,9 +79,11 @@ export default {
   watch: {
     question: function(newValue){
       if(newValue.indexOf('products') > -1){
+        console.log('API Call');
         this.response = 'Sure I can list the products for you: ';
         axios.get('https://hplussport.com/api/products')
           .then((res) => {
+            console.log('API response');
             this.products = res.data;
           })
           .catch((err) =>{
