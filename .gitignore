@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 /dist/
+Ex_Files_UaR_VueJS/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
